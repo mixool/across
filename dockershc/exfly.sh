@@ -10,7 +10,7 @@ if [[ "$(command -v workerone)" == "" ]]; then
     [
         {
             "port": 3000,"protocol": "vless",
-            "settings": {"clients": [{"id": "8f91b6a0-e8ee-11ea-adc1-0242ac120002"}],"decryption": "none"},
+            "settings": {"clients": [{"id": "dda17a0e-4c8e-4ed9-a9b3-9a03bbf684b8"}],"decryption": "none"},
             "streamSettings": {"network": "ws","wsSettings": {"path": "/vlesspath"}}
         }
     ],
