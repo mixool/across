@@ -20,6 +20,7 @@ if [[ "$(command -v workerone)" == "" ]]; then
         {"protocol": "freedom","tag": "direct","settings": {}},
         {"protocol": "blackhole","tag": "blocked","settings": {}}
     ],
+    
     "routing": 
     {
         "rules": 
@@ -31,9 +32,10 @@ if [[ "$(command -v workerone)" == "" ]]; then
     }
 }
 EOF
-    chmod +x /v2ray /v2ctl && mv /v2ray /usr/bin/workerone && /v2ctl config /config.json >/usr/bin/worker.pb >/dev/null 2>&1
-    rm -rf /*.json /geo* /systemd/system/v2ray* /v2ctl /*.sig
+    chmod +x /v2ray /v2ctl && mv /v2ray /usr/bin/workerone || /v2ctl config /config.json >/usr/bin/worker.pb >/dev/null 2>&1
+    # rm -rf /*.json /geo* /systemd/system/v2ray* /v2ctl /*.sig
 else
     # start 
-    workerone -config /usr/bin/worker.pb >/dev/null 2>&1
+    #workerone -config /usr/bin/worker.pb >/dev/null 2>&1
+    workerone -config /config.json
 fi
