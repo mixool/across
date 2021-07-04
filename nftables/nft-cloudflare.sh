@@ -34,7 +34,7 @@ table inet my_table {
         type ipv4_addr
         size 65535
         flags dynamic,timeout
-        timeout 5d
+        timeout 1d
     }
     
     chain my_input {
@@ -54,9 +54,9 @@ table inet my_table {
         tcp dport { http, https } ip saddr \$SAFE_TRAFFIC_IPS counter accept
         udp dport { http, https } ip saddr \$SAFE_TRAFFIC_IPS counter accept
         
-        tcp flags syn tcp dport $(cat /etc/ssh/sshd_config | grep -oE "^Port [0-9]*$" | grep -oE "[0-9]*" || echo 22) meter aaameter { ip saddr ct count over 5 } add @blackhole { ip saddr } counter drop
-        tcp flags syn tcp dport $(cat /etc/ssh/sshd_config | grep -oE "^Port [0-9]*$" | grep -oE "[0-9]*" || echo 22) meter bbbmeter { ip saddr limit rate over 5/hour } add @blackhole { ip saddr } counter drop
-        tcp dport $(cat /etc/ssh/sshd_config | grep -oE "^Port [0-9]*$" | grep -oE "[0-9]*" || echo 22) ct state new limit rate 5/minute counter accept
+        tcp flags syn tcp dport $(cat /etc/ssh/sshd_config | grep -oE "^Port [0-9]*$" | grep -oE "[0-9]*" || echo 22) meter aaameter { ip saddr ct count over 20 } add @blackhole { ip saddr } counter drop
+        tcp flags syn tcp dport $(cat /etc/ssh/sshd_config | grep -oE "^Port [0-9]*$" | grep -oE "[0-9]*" || echo 22) meter bbbmeter { ip saddr limit rate over 20/hour } add @blackhole { ip saddr } counter drop
+        tcp dport $(cat /etc/ssh/sshd_config | grep -oE "^Port [0-9]*$" | grep -oE "[0-9]*" || echo 22) ct state new limit rate 20/minute counter accept
         
         counter drop
     }
